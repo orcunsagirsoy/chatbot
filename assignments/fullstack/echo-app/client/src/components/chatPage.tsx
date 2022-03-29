@@ -2,17 +2,9 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Message from "./message";
 import { ReactComponent as SendIcon } from "../assets/send-icon.svg";
-import axios from "axios";
-
-const MESSAGE_LIST_ID = "message-list-content";
-const FIRST_MESSAGE = { content: "Hi, your mirror is here, you can find yourself on me, let's solve this mystery..", sendBy: "Bot", messageDate: new Date(), messageType: "Text" };
-
-interface MessageType {
-  content: string;
-  messageDate: Date;
-  sendBy: string;
-  messageType: string;
-}
+import { callWithAxios, clearSpacesInput } from "../helpers/utils";
+import MessageType, { MessageCall } from "../models/message";
+import { ContentType, FIRST_MESSAGE, MESSAGE_LIST_ID, SenderType } from "../helpers/constants";
 
 interface Props {}
 const ChatPage: React.FC<Props> = (props: Props) => {
@@ -48,13 +40,13 @@ const ChatPage: React.FC<Props> = (props: Props) => {
   }, [newMessageDate]);
 
   const handleSubmit = async (e: any) => {
-    if (!!textarea.replace(/[\r\n\v]+/g, "").toString()) {
+    if (!!clearSpacesInput(textarea)) {
       e.preventDefault();
       const message = {
-        sendBy: "Client",
+        sendBy: SenderType.Client,
         content: textarea,
         messageDate: new Date(),
-        messageType: "Text",
+        messageType: ContentType.Text,
       };
       setMessages([...messages, message]);
       setNewMessageDate(message.messageDate.toString());
@@ -63,10 +55,8 @@ const ChatPage: React.FC<Props> = (props: Props) => {
 
   async function callMessageAPI(message: MessageType | undefined) {
     try {
-      axios.defaults.baseURL = "http://localhost:8080";
-      axios.defaults.headers.post["Content-Type"] = "application/json;charset=utf-8";
-      const res = await axios.post("/messages/receive", message);
-      res.data.payload.content !== "" && setMessages([...messages, res.data.payload]);
+      const res: Promise<MessageCall> = callWithAxios(message);
+      (await res).data.payload.content !== "" && setMessages([...messages, (await res).data.payload]);
       setTextArea("");
       setIsBotAnswering(true);
     } catch (err) {
@@ -87,7 +77,6 @@ const ChatPage: React.FC<Props> = (props: Props) => {
 
         <ChatSectionBottom>
           <StyledTextArea
-            className="chatMessageInput"
             placeholder="write something..."
             value={textarea}
             maxLength={1024}
@@ -100,7 +89,7 @@ const ChatPage: React.FC<Props> = (props: Props) => {
               }
             }}></StyledTextArea>
           <SendButtonContainer>
-            <SendButton onClick={handleSubmit} is_input_valid={textarea.replace(/[\r\n\v]+/g, "").toString()} />
+            <SendButton onClick={handleSubmit} is_input_valid={clearSpacesInput(textarea)} />
           </SendButtonContainer>
         </ChatSectionBottom>
       </ChatSection>
