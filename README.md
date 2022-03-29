@@ -4,13 +4,17 @@
 
 - Run Docker Server on your local
 
+- Run Mongo server locally
+
 - Navigate to /echo-app folder which contains docker-compose file
 
 - Run "docker compose build"
 
 - Run "docker compose up"
 
-- To stop the container running, run docker compose down
+- App will be running "localhost:3000" listening backend on port 8080
+
+- To stop the container running, run "docker compose down"
 
   **USAGE**
 
