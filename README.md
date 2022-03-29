@@ -17,24 +17,28 @@
 - Should send Message object as JSON to the API, the API will reflect the message changing sendBy as Bot message.
 
 - interface Message {
-  content: string;
-  messageType: string;
-  messageDate: Date;
-  sendBy: string;
+
+        content: string;
+        messageType: string;
+        messageDate: Date;
+        sendBy: string;
+
   }
 
 - API returns;
 
   {
-  "success": true,
-  "payload": {
-  "content": "Hello world",
-  "messageType": "Text",
-  "sendBy": "Client",
-  "\_id": "6242c3697f8122276741e7aa",
-  "messageDate": "2018-03-29T10:34:00.000Z",
-  "\_\_v": 0
-  }
+
+        "success": true,
+        "payload": {
+        "content": "Hello world",
+        "messageType": "Text",
+        "sendBy": "Client",
+        "\_id": "6242c3697f8122276741e7aa",
+        "messageDate": "2018-03-29T10:34:00.000Z",
+        "\_\_v": 0
+        }
+
   }
 
 - curl --location --request POST 'http://localhost:8080/messages/receive' \
