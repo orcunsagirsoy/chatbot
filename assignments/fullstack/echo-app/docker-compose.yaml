@@ -1,0 +1,35 @@
+version: "3.8"
+
+# services : is a list of our container
+services:
+  echo-app-mongodb:
+    image: "mongo"
+    ports:
+      - "27017:27017"
+
+    # our environment variable
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: "root"
+      MONGO_INITDB_ROOT_PASSWORD: "1234"
+
+  backend:
+    build: ./api
+    ports:
+      - "8080:8080"
+
+    depends_on:
+      - echo-app-mongodb
+
+  frontend:
+    build: ./client
+
+    ports:
+      - "3000:3000"
+
+    # allow interactive mode
+    stdin_open: true
+    tty: true
+
+    # it will start our frontend container once backend-container is  up and running.
+    depends_on:
+      - backend
