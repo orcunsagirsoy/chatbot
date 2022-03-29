@@ -1,14 +1,65 @@
-# Chatlayer code tests
+### `Mirroring Chatbot`
 
-Welcome to the Chatlayer code tests repo! This repo contains assignments which you may solve using any language, but JavaScript or TypeScript are preferred. You can find the assignments in the `assignments` folder. Each subfolder contains an `assignment.md` file with an in-depth explanation. 
+- **INSTALLATION**
 
-We expect you to complete both assignments. The `fullstack` assignment will take around 1h30m, the `interpolateSession` assignment will take around 30 minutes. Don't worry if you exceed these guidelines.
+- Run Docker Server on your local
 
-Feel free to clone this repo and use it as a starting point for your solutions. 
+- Navigate to /echo-app folder which contains docker-compose file
 
-You may submit the result of these assignments as a link to a **public** repository on your own git-based platform account, or send the results as a ZIP file. Submissions are to be sent through e-mail to:
-- [brecar@on.sinch.com](mailto:brecar@on.sinch.com)
+- Run "docker compose build"
 
-If you have any questions, feel free to e-mail [brecar@on.sinch.com](mailto:brecar@on.sinch.com).
+- Run "docker compose up"
 
-We're excited to see how you'll be tackling these. Good luck and have fun!
+- To stop the container running, run docker compose down
+
+- **USAGE**
+
+- Should send Message object as JSON to the API, the API will reflect the message changing sendBy as Bot message.
+
+- interface Message {
+  content: string;
+  messageType: string;
+  messageDate: Date;
+  sendBy: string;
+  }
+
+- API returns;
+
+  {
+  "success": true,
+  "payload": {
+  "content": "Hello world",
+  "messageType": "Text",
+  "sendBy": "Client",
+  "\_id": "6242c3697f8122276741e7aa",
+  "messageDate": "2018-03-29T10:34:00.000Z",
+  "\_\_v": 0
+  }
+  }
+
+- curl --location --request POST 'http://localhost:8080/messages/receive' \
+   --header 'Content-Type: application/json' \
+   --data-raw '{
+
+        "content": "Hello world",
+        "messageType": "Text",
+        "messageDate": "2018-03-29T13:34:00.000",
+        "sendBy": "Client"
+
+  }'
+
+- **COMPLEXITY ANALYSIS**
+
+- API has constant O(1) time complexity since there is only repo methods, O(n) space complexity since new message object is created on each request.
+
+- **TECH STACK**
+
+- React, Axios, Styled Components
+
+- Typescript
+
+- Node, Express, Mongo
+
+- Docker
+
+- Jest, Mocha
