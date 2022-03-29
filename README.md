@@ -1,6 +1,6 @@
 ### `Mirroring Chatbot`
 
-- **INSTALLATION**
+**INSTALLATION**
 
 - Run Docker Server on your local
 
@@ -12,7 +12,7 @@
 
 - To stop the container running, run docker compose down
 
-- **USAGE**
+  **USAGE**
 
 - Should send Message object as JSON to the API, the API will reflect the message changing sendBy as Bot message.
 
@@ -52,11 +52,11 @@
 
   }'
 
-- **COMPLEXITY ANALYSIS**
+  **COMPLEXITY ANALYSIS**
 
 - API has constant O(1) time complexity since there is only repo methods, O(n) space complexity since new message object is created on each request.
 
-- **TECH STACK**
+  **TECH STACK**
 
 - React, Axios, Styled Components
 
