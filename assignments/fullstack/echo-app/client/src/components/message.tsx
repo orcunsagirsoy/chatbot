@@ -50,7 +50,7 @@ const MessageText = styled.p<{ isMyMessage: boolean }>`
     box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.15);
     border-bottom-left-radius: ${(props) => (props.isMyMessage ? "15px;" : "0px;")}
     border-bottom-right-radius: ${(props) => (props.isMyMessage ? "0px;" : "15px;")}
-    background-color: ${(props) => (!props.isMyMessage ? "#fef8ce;" : "#ffffff;")}
+    background-color: ${(props) => (!props.isMyMessage ? "#ffffff;" : "#fef8ce;")}
     color: #4d4d4d;
     max-width: 300px;
 `;
@@ -110,7 +110,7 @@ const TypingContainer = styled.div<{ isMyMessage: boolean }>`
   box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.15);
   border-bottom-left-radius: ${(props) => (props.isMyMessage ? "15px;" : "0px;")}
   border-bottom-right-radius: ${(props) => (props.isMyMessage ? "0px;" : "15px;")}
-  background-color: ${(props) => (!props.isMyMessage ? "#fef8ce;" : "#ffffff;")}
+  background-color: ${(props) => (!props.isMyMessage ? "#ffffff;" : "#fef8ce;")}
   color: #4d4d4d;
   max-width: 300px;
 `;
