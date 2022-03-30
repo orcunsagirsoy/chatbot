@@ -35,9 +35,9 @@ describe("Message Service", function () {
       // When
       let result = await messageService.receiveMessage(clientMessage);
       // Then
-      expect(result.content).to.eql("hello");
-      expect(result.sendBy).to.eql("Bot");
-      expect(result.messageType).to.eql("Text");
+      expect(result?.content).to.eql("hello");
+      expect(result?.sendBy).to.eql("Bot");
+      expect(result?.messageType).to.eql("Text");
 
       sinon.assert.calledOnce(repoStubs[0]);
     });

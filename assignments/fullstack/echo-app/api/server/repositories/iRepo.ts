@@ -12,7 +12,7 @@ export default class iRepo<T> {
    * Creating an entity inside the database
    * @param {*} obj : The entity to be created
    */
-  async create(obj: Omit<T, "_id">) {
+  async create(obj: T) {
     const result = await this.repo?.create(obj);
     return result?.toObject() as unknown as T;
   }

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Message from "./message";
 import { ReactComponent as SendIcon } from "../assets/send-icon.svg";
 import { callWithAxios, clearSpacesInput } from "../helpers/utils";
-import MessageType, { MessageCall } from "../models/message";
+import MessageType from "../models/message";
 import { ContentType, FIRST_MESSAGE, MESSAGE_LIST_ID, SenderType } from "../helpers/constants";
 
 interface Props {}
@@ -55,8 +55,8 @@ const ChatPage: React.FC<Props> = (props: Props) => {
 
   async function callMessageAPI(message: MessageType | undefined) {
     try {
-      const res: Promise<MessageCall> = callWithAxios(message);
-      (await res).data.payload.content !== "" && setMessages([...messages, (await res).data.payload]);
+      const res = await callWithAxios(message);
+      res?.data.payload && setMessages([...messages, res.data.payload]);
       setTextArea("");
       setIsBotAnswering(true);
     } catch (err) {

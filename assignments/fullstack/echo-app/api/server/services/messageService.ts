@@ -1,3 +1,4 @@
+import Constants from "../helpers/constants";
 import Message from "../models/app/message";
 import MessageRepo from "../repositories/messageRepo";
 
@@ -14,11 +15,14 @@ export default class MessageService {
       sendBy: ""
     };
 
-    botMessage.sendBy = "Bot";
+    botMessage.sendBy = Constants.SenderType.Bot;
     botMessage.content = result.content;
     botMessage.messageDate = result.messageDate;
     botMessage.messageType = result.messageType;
 
-    return botMessage;
+    if (botMessage.content.length) {
+      await this.messageRepo.create(botMessage);
+      return botMessage;
+    }
   }
 }
